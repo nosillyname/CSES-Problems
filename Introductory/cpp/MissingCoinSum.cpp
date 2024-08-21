@@ -43,11 +43,30 @@ typedef unsigned long long int  uint64;
 int main()
 {
    fast;
-   ll t;
-   cin>>t;
+   ll t=1;
+//    cin>>t;
    while(t--)
    {
-       
+       ll n,ans=1,t=0;
+       cin>>n;
+       vll a(n,0);
+       rep(0,n-1){
+            cin>>a[i];
+       }
+       sort(a.begin(),a.end());
+    //   ans = a[0];
+        for(ll i=0;i<n;i++){
+            if(ans<a[i]){
+                cout<<ans<<"\n";
+                t =1;
+                break;
+            }else{
+                ans+=a[i];
+            }
+        }
+        if(t==0){
+            cout<<ans<<"\n";
+        }
    }
     return 0;
 }

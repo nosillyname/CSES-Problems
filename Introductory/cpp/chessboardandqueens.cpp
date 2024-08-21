@@ -12,7 +12,6 @@ using namespace std;
 #define vvc vector<vector<char> >
 #define mii map<int, int>
 #define si set<int>
-#define sl set<long long>
 #define sc set<char>
 #define pb push_back
 #define eb emplace_back
@@ -20,7 +19,6 @@ using namespace std;
 #define PI 3.1415926535897932384626433832795
 #define read(type) readInt<type>()
 #define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define rep(a,b) for(ll i=a;i<=b;i++)
 ll min(ll a,int b) { if (a<b) return a; return b; }
 ll min(int a,ll b) { if (a<b) return a; return b; }
 ll max(ll a,int b) { if (a>b) return a; return b; }
@@ -39,15 +37,41 @@ typedef long long int int64;
 typedef unsigned long long int  uint64;
 
 
+void solve(ll y,vvc & mesh,vll &col,vll &diag1,vll & diag2,ll & ans){
+    // cout<<"h"<<"\n";
+    if(y==mesh.size()){
+        ans++;
+        return;
+    }else{
+        for(int i=0;i<8;i++){
+            if(mesh[y][i]=='*' || col[i] || diag1[y+i] || diag2[i-y+8-1])continue;
+            col[i] = diag1[i+y] = diag2[i-y+8-1] = 1;
+            solve(y+1,mesh,col,diag1,diag2,ans);
+            col[i] = diag1[i+y] = diag2[i-y+8-1] = 0;
+        }
+    }
+}
+
 
 int main()
 {
    fast;
-   ll t;
-   cin>>t;
+   ll t = 1;
+//    cin>>t;
    while(t--)
    {
-       
+        int n = 8;
+        vvc mesh(8,vc(8,' '));
+        for(ll i=0;i<8;i++){
+                for(ll j=0;j<8;j++){
+                    cin>>mesh[i][j];
+                }
+        }
+        vll col (8,0),diag1(16,0),diag2(16,0);
+        ll ans = 0;
+        solve(0,mesh,col,diag1,diag2,ans);
+        cout<<ans<<"\n";
+
    }
     return 0;
 }

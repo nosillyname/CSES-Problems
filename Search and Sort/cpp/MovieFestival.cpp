@@ -7,6 +7,7 @@ using namespace std;
 #define pll pair<long long, long long>
 #define vi vector<int>
 #define vll vector<long long>
+#define vpl vector<pair<long long , long long> >
 #define vc vector<char> 
 #define vvll vector<vector<long long > >
 #define vvc vector<vector<char> >
@@ -43,11 +44,26 @@ typedef unsigned long long int  uint64;
 int main()
 {
    fast;
-   ll t;
-   cin>>t;
+   ll t = 1;
+//    cin>>t;
    while(t--)
    {
-       
+       ll n,x,y;
+       cin>>n;
+       vpl a;
+       rep(0,n-1){
+            cin>>x>>y;
+            a.pb(make_pair(x,y));
+       }
+       sort(a.begin(),a.end(),[](auto a,auto b){return a.second<b.second;});
+      ll ans = 1,temp = a[0].second;
+      for(ll i=1;i<n;i++){
+          if(temp<=a[i].first){
+              temp = a[i].second;
+              ans++;
+          }
+      }
+      cout<<ans<<"\n";
    }
     return 0;
 }
