@@ -38,18 +38,16 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
+
+void dfs(long long int s,vector<long long int > adj[],vector<long long int> &vis){
     if(vis[s]==1)return;
     vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
+    for(auto x : adj[s]){
         if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
+        dfs(x,adj,vis);
     }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
 }
+
 
 int main()
 {
@@ -58,24 +56,29 @@ int main()
 //    cin>>t;
    while(t--)
    {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
-        }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+       ll n,m,a,b;
+       cin>>n>>m;
+       vll adj[n+1];
+       for(ll i=0;i<m;i++){
+            cin>>a>>b;
+            adj[a].pb(b);
+            adj[b].pb(a);
+       }
+       vll ans,vis(n+1,0);
+       for(ll i=1;i<=n;i++){
+            if(vis[i]==0){
+                dfs(i,adj,vis);
+                ans.pb(i);
+            }
+       }
+    //   for(ll i=0;i<ans.size();i++){
+    //         cout<<ans[i];
+    //   }
+    cout<<ans.size()-1<<"\n";
+    for(ll i=0;i<ans.size()-1;i++){
+        cout<<ans[i]<<" "<<ans[i+1]<<"\n";
+    }
+       
    }
     return 0;
 }

@@ -38,44 +38,34 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
-    if(vis[s]==1)return;
-    vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
-        if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
-    }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
-}
+
 
 int main()
 {
    fast;
-   ll t = 1;
+   ll t =1;
 //    cin>>t;
    while(t--)
    {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
+        ll n,m,t;
+        cin>>n>>m;
+        multiset<ll> cost;
+        vll offer(m,0),ans(m,-1);
+        for(ll i=0;i<n;i++){
+            cin>>t;
+            cost.insert(-1*t);
         }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+        for(ll i=0;i<m;i++){
+            cin>>t;
+            auto temp = cost.lower_bound(-1*t);
+            if(temp != cost.end()){
+                ans[i] = -1*(*temp);
+                // ans = -1*(*temp);
+                cost.erase(temp);
+            }
+            cout<<ans[i]<<" ";
+        }
+        
    }
     return 0;
 }

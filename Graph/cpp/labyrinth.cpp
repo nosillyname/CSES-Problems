@@ -38,17 +38,30 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
-    if(vis[s]==1)return;
-    vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
-        if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
+int dx[4] = {1,-1,0,0};
+int dy[4] = {0,0,1,-1};
+string dc = "DURL";
+
+
+void dfs(ll i,ll j,ll n,ll m,vector<vector<char>> &graph,string& st,char add,bool & a){
+    if(i<0 || j<0 || i>=n || j>=m || graph[i][j]=='#' || a==true){
+        return ;
     }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
+    st +=add;
+    if(graph[i][j]=='B'){
+        a=true;
+        return ;
+    }
+    graph[i][j] = '#';
+    
+    for(int k=0;k<4;k++){
+        int ni = i+dx[k];
+        int nj = j+dy[k];
+        // st+=dc[k];
+        // cout<<st<<"\n";
+        dfs(ni,nj,n,m,graph,st,dc[k],a);
+        // st.erase(st.size()-1);
+    }
 }
 
 int main()
@@ -58,24 +71,34 @@ int main()
 //    cin>>t;
    while(t--)
    {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
-        }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+       ll n,m,s,t;
+       cin>>n>>m;
+       vector<vector<char>> graph (n,vector<char>(m,' '));
+       for(ll i=0;i<n;i++){
+           for(ll j=0;j<m;j++){
+               cin>>graph[i][j];
+               if(graph[i][j] == 'A'){
+                   s = i;
+                   t = j;
+               }
+           }
+       }
+       string st = "";
+       char add =' ';
+       bool a=false;
+    //   cout<<"sttt"<<s<<t<<"\n";
+        dfs(s,t,n,m,graph,st,add,a);
+        st = st.substr(1);
+    //   cout<<"ans"<<"   "<<st<<"\n";
+    // cout<<a<<st<<"\n";
+    if(a){
+        cout<<"YES"<<"\n";
+        cout<<st.length()<<"\n";
+        cout<<st<<"\n";
+    }else{
+        cout<<"NO"<<"\n";
+    }
+
    }
     return 0;
 }

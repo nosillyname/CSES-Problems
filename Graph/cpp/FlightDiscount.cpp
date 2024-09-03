@@ -14,6 +14,7 @@ using namespace std;
 #define si set<int>
 #define sl set<long long>
 #define sc set<char>
+#define pq priority_queue<pair<long long, long long> >
 #define pb push_back
 #define eb emplace_back
 #define MOD 1000000007
@@ -49,64 +50,29 @@ int main()
    {
         ll n,m;
        cin>>n>>m;
-       vector<tuple<long long ,long long,long long> > adj;
+        vector<pair<ll,ll> > adj[n];
        ll a,b,c;
-       vvll at(n,vll(n,INT_MAX));
        rep(0,m-1){
             cin>>a>>b>>c;
-            // adj.pb(make_tuple(a,b,c));
-            at[a-1][b-1] = c;
+            adj[a].pb(make_pair(b,c));
        }
-       for(ll i=0;i<n;i++)at[i][i]=0;
-    //   for(auto x:at){
-    //       for(auto y:x){
-    //           cout<<y<<" ";
-    //       }
-    //       cout<<"\n";
-    //   }
-       for(ll i=0;i<n;i++){
-           for(ll j=0;j<n;j++){
-               for(ll k=0;k<n;k++){
-                   at[i][j] = min(at[i][j],at[i][k]+at[k][j]);
-               }
-           }
+       vll disc(n+1,LLONG_MAX) ,full(n+1,LLONG_MAX);
+       priority_queue<tuple<long long,long long ,long long > > minheap;
+       for(auto x:adj[1]){
+            minheap.push(make_tuple((-1*x.second)/2,x.first,0));
+            minheap.push(make_tuple(-1*x.second,x.first,1));
        }
-       cout<<at[0][n-1]<<"\n";
-    //   for(auto x:at){
-    //       for(auto y:x){
-    //           cout<<y<<" ";
-    //       }
-    //       cout<<"\n";
-    //   }
-       
-    //   vll dist(n+1,0);
-    //   rep(0,n){
-    //       dist[i] = LLONG_MAX;
-    //   }
-    //   ll temp = LLONG_MAX;
-    //   dist[1] =0;
-    //   sort(adj.begin(),adj.end(),[](auto a,auto b){return get<0>(a)<get<0>(b);});
-    //   for(auto x:adj){
-    //     tie(a,b,c) = x;
-    //     dist[b] = min(dist[b],dist[a]+c);
-    //     // if(min(dist[b],dist[a]+c/2)<=min(dist[b],dist[a]+temp/2))
-    //     if(temp>=(c/2)){
-    //         // cout<<"iff condition"<<(temp==LLONG_MAX ? 0 :temp)<<"\n";
-            
-    //         dist[b] = min(dist[b],dist[a]+(c/2)) + (temp==LLONG_MAX ? 0 :temp);
-    //         temp = c/2;
-    //         // cout<<"if"<<dist[b]<<"   "<<temp<<"minimum"<<(min(dist[b],dist[a]+(c/2)))<<"\n";
-    //     }else{
-    //         dist[b] = min(dist[b],dist[a]+c);
-    //         // cout<<"else"<<dist[b]<<"\n";
-    //     }
-    //     // cout<<a<<b<<c<<"\n";
-    //   }
-    //   for(auto e:dist){
-    //       cout<<e<<" ";
-    //   }
-    // cout<<dist[n]<<"\n";
+       while(!pq.empty()){
+            auto x = pq.top();
+            ll w = -1 * get<0>x;
+            ll v = get<1>x;
+            ll b = get<2>x;
+            q.pop();
+            for(auto x:adj[v]){
+                if()
+            }
 
+       }
 
    }
     return 0;

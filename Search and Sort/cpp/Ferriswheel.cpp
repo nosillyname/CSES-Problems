@@ -38,18 +38,7 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
-    if(vis[s]==1)return;
-    vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
-        if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
-    }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
-}
+
 
 int main()
 {
@@ -57,25 +46,30 @@ int main()
    ll t = 1;
 //    cin>>t;
    while(t--)
-   {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
-        }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+   {    
+       ll n,x;
+       cin>>n>>x;
+       vll w(n,0);
+       for(ll i=0;i<n;i++){
+        cin>>w[i];
+       }
+       sort(w.begin(),w.end());
+       ll i=0,j=n-1,ans=0,temp=0;
+       while(i<=j){
+            temp = w[i] + w[j];
+            if(i==j){
+                temp = w[i];
+            }
+            if(temp<=x){
+                ans++;
+                i++;
+                j--;
+            }else{
+                j--;
+                ans++;
+            }
+       }
+       cout<<ans<<"\n";
    }
     return 0;
 }

@@ -38,18 +38,7 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
-    if(vis[s]==1)return;
-    vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
-        if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
-    }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
-}
+
 
 int main()
 {
@@ -58,24 +47,26 @@ int main()
 //    cin>>t;
    while(t--)
    {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
-        }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+       ll n,m,k;
+       cin>>n>>m>>k;
+       vll t(n,0),sz(m,0);
+       for(ll i=0;i<n;i++)cin>>t[i];
+       for(ll i=0;i<m;i++)cin>>sz[i];
+       sort(t.begin(),t.end());
+       sort(sz.begin(),sz.end());
+       ll i=0,j=0,ans=0;
+       while(i<n & j<m){
+            if(sz[j]<=t[i]+k & sz[j]>= t[i]-k){
+                ans++;
+                i++;
+                j++;
+            }else if(sz[j]>t[i]+k){
+                i++;
+            }else{
+                j++;
+            }
+       }
+       cout<<ans<<"\n";
    }
     return 0;
 }

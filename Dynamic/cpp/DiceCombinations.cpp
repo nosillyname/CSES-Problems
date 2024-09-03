@@ -38,44 +38,31 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
-    if(vis[s]==1)return;
-    vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
-        if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
-    }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
-}
+
 
 int main()
 {
    fast;
-   ll t = 1;
+   ll t=1;
 //    cin>>t;
    while(t--)
    {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
-        }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+       ll n;
+       cin>>n;
+       vll dp(n+1,0);
+       dp[1]=1;
+       for(ll i=2;i<=n;i++){
+            for(ll j=1;j<=6;j++){
+                if(i>j){
+                    dp[i] =((dp[i]%MOD)+ (dp[i-j]%MOD))%MOD;
+                }
+                if(i==j)dp[i]=(dp[i]+1)%MOD;
+            }
+       }
+    //   for(ll i=0;i<=n;i++){
+    //       cout<<dp[i]<<" ";
+    //   }
+      cout<<dp[n]<<"\n";
    }
     return 0;
 }

@@ -14,6 +14,7 @@ using namespace std;
 #define si set<int>
 #define sl set<long long>
 #define sc set<char>
+#define ql queue<long long>
 #define pb push_back
 #define eb emplace_back
 #define MOD 1000000007
@@ -38,44 +39,45 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-void dfs(ll s,vll adj[],vll & dis,vll & vis){
-    if(vis[s]==1)return;
-    vis[s] = 1;
-    ll count = 0;
-    for(auto x:adj[s]){
-        if(vis[x]==1)continue;
-        dfs(x,adj,dis,vis);
-        count+=dis[x]+1;
-    }
-    dis[s] = count;
-    // cout<<s<<"  "<<count<<"\n";
-}
+
 
 int main()
 {
    fast;
    ll t = 1;
-//    cin>>t;
+   cin>>t;
+
    while(t--)
    {
-        ll n,a;
-        cin>>n;
-        vll adj[n+1];
-        for(ll i=2;i<=n;i++){
-            cin>>a;
-            adj[a].pb(i);
-        }
-        // for(auto x:adj){
-        //     for(auto s:x){
-        //         cout<<s<<" ";
-        //     }
-        //     cout<<"\n";
-        // }
-        vll dis(n+1,0),vis(n+1,0);
-        dfs(1,adj,dis,vis);
-        for(ll i=1;i<=n;i++){
-            cout<<dis[i]<<" ";
-        }   
+       ll n,k;
+       cin>>n>>k;
+       ql q ;
+       for(ll i=1;i<=n;i++){
+         q.push(i);
+       }
+       ll ans = 0;
+       while(k--){
+            ans = q.front();
+            q.push(ans);
+            q.pop();
+            ans = q.front();
+            q.pop();
+            // k--;
+       }
+       cout<<ans<<"\n";
+    //    if(n%2==0){
+    //         if(k>(n/2)){
+    //             cout<<((k-((n)/2)-1)*2)+1<<"\n";
+    //         }else{
+    //             cout<<k*2<<"\n";
+    //         }
+    //    }else{
+    //         if(k>((n-1)/2)){
+    //             cout<<((k-((n-1)/2)-1)*2)+1<<"\n";
+    //         }else{
+    //             cout<<k*2<<"\n";
+    //         }
+    //    }
    }
     return 0;
 }
