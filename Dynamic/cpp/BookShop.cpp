@@ -63,7 +63,6 @@ using namespace std;
 
 int rec(int n,int x,vector<int>pages,vector<int>price,vector<int>&dp){
     if(n<0)return 0;
-
     int temp =0;
     if (dp[x]!= -1) return dp[x];
     if(x>=price[n])temp = rec(n-1,x-price[n],pages,price,dp)+pages[n];
@@ -74,14 +73,22 @@ int rec(int n,int x,vector<int>pages,vector<int>price,vector<int>&dp){
 void solve(){
     int n,x;
     cin>>n>>x;
-    vector<int> pages(n,0),price(n,0),dp(x+1,-1);
+    vector<int> pages(n,0),price(n,0);
     for(int i=0;i<n;i++){
         cin>>price[i];
     }
     for(int i=0;i<n;i++){
         cin>>pages[i];
     }
-    cout<<rec(n-1,x,pages,price,dp)<<"\n";
+    vector<vector<int>> dp(n+1,vector<int>(x+1,0));
+    for(int i=1;i<=n;i++){
+        for(int j=0;j<=x;j++){
+            int temp = j>=price[i-1] ? dp[i-1][j-price[i-1]]+pages[i-1] : 0;
+            dp[i][j] = max(temp,dp[i-1][j]); 
+        }
+    }
+    cout<<dp[n][x]<<"\n";
+    // cout<<rec(n-1,x,pages,price,dp)<<"\n";
 }
 
 
