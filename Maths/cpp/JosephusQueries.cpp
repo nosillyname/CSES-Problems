@@ -46,38 +46,11 @@ int main()
    fast;
    ll t = 1;
    cin>>t;
-
    while(t--)
    {
        ll n,k;
        cin>>n>>k;
-       ql q ;
-       for(ll i=1;i<=n;i++){
-         q.push(i);
-       }
-       ll ans = 0;
-       while(k--){
-            ans = q.front();
-            q.push(ans);
-            q.pop();
-            ans = q.front();
-            q.pop();
-            // k--;
-       }
-       cout<<ans<<"\n";
-    //    if(n%2==0){
-    //         if(k>(n/2)){
-    //             cout<<((k-((n)/2)-1)*2)+1<<"\n";
-    //         }else{
-    //             cout<<k*2<<"\n";
-    //         }
-    //    }else{
-    //         if(k>((n-1)/2)){
-    //             cout<<((k-((n-1)/2)-1)*2)+1<<"\n";
-    //         }else{
-    //             cout<<k*2<<"\n";
-    //         }
-    //    }
+       
    }
     return 0;
 }

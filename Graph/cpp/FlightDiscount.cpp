@@ -57,17 +57,17 @@ int main()
             adj[a].pb(make_pair(b,c));
        }
        vll disc(n+1,LLONG_MAX) ,full(n+1,LLONG_MAX);
-       priority_queue<tuple<long long,long long ,long long > > minheap;
+       priority_queue<tuple<long long,long long ,long long> > pqt;
        for(auto x:adj[1]){
-            minheap.push(make_tuple((-1*x.second)/2,x.first,0));
-            minheap.push(make_tuple(-1*x.second,x.first,1));
+            pqt.push(make_tuple((-1*x.second)/2,x.first,0));
+            pqt.push(make_tuple(-1*x.second,x.first,1));
        }
-       while(!pq.empty()){
-            auto x = pq.top();
-            ll w = -1 * get<0>x;
-            ll v = get<1>x;
-            ll b = get<2>x;
-            q.pop();
+       while(!pqt.empty()){
+            auto x = pqt.top();
+            ll w = -1 * get<0>(x);
+            ll v = get<1>(x);
+            ll b = get<2>(x);
+            pqt.pop();
             for(auto x:adj[v]){
                 if()
             }

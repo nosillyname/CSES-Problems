@@ -20,7 +20,7 @@ using namespace std;
 #define PI 3.1415926535897932384626433832795
 #define read(type) readInt<type>()
 #define fast ios_base::sync_with_stdio(0);cin.tie(0);cout.tie(0);
-#define rep(a,b) for(ll i=a;i<=b;i++)
+#define rep(i,a,b) for(ll i=a;i<=b;i++)
 ll min(ll a,int b) { if (a<b) return a; return b; }
 ll min(int a,ll b) { if (a<b) return a; return b; }
 ll max(ll a,int b) { if (a>b) return a; return b; }
@@ -38,57 +38,43 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-int dx[4] = {1,-1,0,0};
-int dy[4] = {0,0,1,-1};
-string dc = "DURL";
 
+// vector<string> solve(ll n){
+//     if(n==1){
+//         vector<string> s = {"0","1"};
+//         return s;
+//     }
+
+// }
 
 int main()
 {
    fast;
-   ll t = 1;
-//    cin>>t;
+   ll t=1;
+//   cin>>t;
    while(t--)
-   {
-       ll n,m,s,t;
-       cin>>n>>m;
-       vector<vector<char>> graph (n,vector<char>(m,' '));
-       for(ll i=0;i<n;i++){
-           for(ll j=0;j<m;j++){
-               cin>>graph[i][j];
-               if(graph[i][j] == 'A'){
-                   s = i;
-                   t = j;
-               }
-           }
-       }
-        queue<tuple<long long,long long,string> > q;
-        tuple<long long,long long,string> tp;
-        q.push(make_tuple(s,t,""));
-        while(!q.empty()){
-            tp = q.front();
-            s  = get<0>(tp);
-            t  = get<1>(tp);
-            string str = get<2>(tp);
-            q.pop();
-            for(int i=3;i>=0;i--){
-                long long ni = s+dx[i];
-                long long nj = t+dy[i];
-                if(ni<0 || nj<0 || ni>=n || nj>=m || graph[ni][nj]=='#')continue;
-                str+=dc[i];
-                if(graph[ni][nj]=='B'){
-                    cout<<"YES"<<"\n";
-                    cout<<str.length()<<"\n";
-                    cout<<str<<"\n";
-                    return 0;
-                }
-                graph[ni][nj] ='#';
-                q.push(make_tuple(ni,nj,str));
-                str.pop_back();
-            }
-
+   {    
+     ll n;
+     cin>>n;
+    //  vector<string> ans ;
+    //  ans = solve(n);
+    vector<string> s = {"0","1"},a;
+    a = s;
+    for(ll j=1;j<n;j++){
+        for(ll i=0;i<pow(2,j);i++){
+            s[i]+="0";
         }
-    cout<<"NO"<<"\n";
+        for(ll i=0;i<pow(2,j);i++){
+            a[i]+="1";
+        }
+        reverse(a.begin(),a.end());
+        s.insert(s.end(),a.begin(),a.end());
+        a = s;
+    }
+    for(auto x:s){
+        cout<<x<<"\n";
+    }
+       
    }
     return 0;
 }

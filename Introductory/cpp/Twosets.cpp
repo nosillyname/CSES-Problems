@@ -38,57 +38,57 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-int dx[4] = {1,-1,0,0};
-int dy[4] = {0,0,1,-1};
-string dc = "DURL";
 
 
 int main()
 {
    fast;
    ll t = 1;
-//    cin>>t;
+//   cin>>t;
    while(t--)
    {
-       ll n,m,s,t;
-       cin>>n>>m;
-       vector<vector<char>> graph (n,vector<char>(m,' '));
-       for(ll i=0;i<n;i++){
-           for(ll j=0;j<m;j++){
-               cin>>graph[i][j];
-               if(graph[i][j] == 'A'){
-                   s = i;
-                   t = j;
-               }
-           }
+       ll n,sum=0,temp=0,ind;
+       cin>>n;
+       sum = (n*(n+1))/2;
+       if(sum%2!=0){
+           cout<<"NO"<<"\n";
+           continue;
        }
-        queue<tuple<long long,long long,string> > q;
-        tuple<long long,long long,string> tp;
-        q.push(make_tuple(s,t,""));
-        while(!q.empty()){
-            tp = q.front();
-            s  = get<0>(tp);
-            t  = get<1>(tp);
-            string str = get<2>(tp);
-            q.pop();
-            for(int i=3;i>=0;i--){
-                long long ni = s+dx[i];
-                long long nj = t+dy[i];
-                if(ni<0 || nj<0 || ni>=n || nj>=m || graph[ni][nj]=='#')continue;
-                str+=dc[i];
-                if(graph[ni][nj]=='B'){
-                    cout<<"YES"<<"\n";
-                    cout<<str.length()<<"\n";
-                    cout<<str<<"\n";
-                    return 0;
-                }
-                graph[ni][nj] ='#';
-                q.push(make_tuple(ni,nj,str));
-                str.pop_back();
-            }
-
-        }
-    cout<<"NO"<<"\n";
+       ll i=1,j=n,k=0;
+       vector<int>a ;
+       while(k<n){
+           if(k%2==1){
+            //   cout<<i<<"\n";
+               temp+=i;
+               a.pb(i);
+               i++;
+           }else{
+            //   cout<<j<<"\n";
+               temp+=j;
+               a.pb(j);
+               j--;
+           }
+           if(temp==(sum/2)){
+               ind=k;
+           }
+           k++;
+       }
+    //   for(auto x:a){
+    //       cout<<x<<" ";
+    //   }
+    //   cout<<"\n";
+    cout<<"YES"<<"\n";
+       cout<<ind+1<<"\n";
+       for(ll i=0;i<=ind;i++){
+           cout<<a[i]<<" ";
+       }
+       cout<<"\n";
+       cout<<(n-ind-1)<<"\n";
+       for(ll i=ind+1;i<n;i++){
+           cout<<a[i]<<" ";
+       }
+       cout<<"\n";
+    //   cout<<ind<<"indesed"<<"\n";
    }
     return 0;
 }

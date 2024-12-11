@@ -38,57 +38,46 @@ typedef unsigned long int uint32;
 typedef long long int int64;
 typedef unsigned long long int  uint64;
 
-int dx[4] = {1,-1,0,0};
-int dy[4] = {0,0,1,-1};
-string dc = "DURL";
-
 
 int main()
 {
    fast;
    ll t = 1;
-//    cin>>t;
+  cin>>t;
    while(t--)
    {
-       ll n,m,s,t;
-       cin>>n>>m;
-       vector<vector<char>> graph (n,vector<char>(m,' '));
-       for(ll i=0;i<n;i++){
-           for(ll j=0;j<m;j++){
-               cin>>graph[i][j];
-               if(graph[i][j] == 'A'){
-                   s = i;
-                   t = j;
-               }
-           }
+       ll a,b;
+       cin>>a>>b;
+       ll x,y;
+       if((a+b)%3!=0){
+        cout<<"NO"<<"\n";
+        continue;
        }
-        queue<tuple<long long,long long,string> > q;
-        tuple<long long,long long,string> tp;
-        q.push(make_tuple(s,t,""));
-        while(!q.empty()){
-            tp = q.front();
-            s  = get<0>(tp);
-            t  = get<1>(tp);
-            string str = get<2>(tp);
-            q.pop();
-            for(int i=3;i>=0;i--){
-                long long ni = s+dx[i];
-                long long nj = t+dy[i];
-                if(ni<0 || nj<0 || ni>=n || nj>=m || graph[ni][nj]=='#')continue;
-                str+=dc[i];
-                if(graph[ni][nj]=='B'){
-                    cout<<"YES"<<"\n";
-                    cout<<str.length()<<"\n";
-                    cout<<str<<"\n";
-                    return 0;
-                }
-                graph[ni][nj] ='#';
-                q.push(make_tuple(ni,nj,str));
-                str.pop_back();
-            }
-
-        }
-    cout<<"NO"<<"\n";
+       if(a==0 && b==0){
+           cout<<"YES"<<"\n";
+           continue;
+       }
+       ll t = min(a,b);
+       if(t==0){
+           cout<<"NO"<<"\n";
+           continue;
+       }
+       x = (2*a - b);
+       y = (2*b - a);
+       if(x%3!=0 || y%3!=0){
+           cout<<"NO"<<"\n";
+           continue;
+       }
+       x/=3;
+       y/=3;
+       t = min(x,y);
+       ll mt = max(a,b);
+       if(x<0 || y<0 || (t==0 && mt==0) ){
+           cout<<"NO"<<"\n";
+           continue;
+       }
+       cout<<"YES"<<"\n";
+    //   cout<<ind<<"indesed"<<"\n";
    }
     return 0;
 }

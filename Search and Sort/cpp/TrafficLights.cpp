@@ -47,7 +47,23 @@ int main()
 //    cin>>t;
    while(t--)
    {
-       int 
+       int n,m,x,pre,nxt;
+       cin>>n>>m;
+       set<ll> st;
+       multiset<int> mst;
+       st.insert(0);
+       st.insert(n);
+       mst.insert(n);
+       for(ll i=0;i<m;i++){
+            cin>>x;
+            st.insert(x);
+            pre = *prev(st.find(x));
+            nxt = *next(st.find(x));
+            mst.erase(mst.find(nxt-pre));
+            mst.insert(x-pre);
+            mst.insert(nxt-x);
+            cout<<*mst.rbegin()<<" ";
+       }
    }
     return 0;
 }
